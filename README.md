@@ -6,9 +6,9 @@
 
 |   **Member Name**   | **Member Roll No.** |
 | :-----------------: | :-----------------: |
-| Tirthankar Mazumder | 20B090012           |
-| Param Rathour       | 190070049           |
-| Divyansh Tiwari     | 200020049           |
+| Tirthankar Mazumder |      20B090012      |
+| Param Rathour       |      190070049      |
+| Divyansh Tiwari     |      200020049      |
 
 ---
 
