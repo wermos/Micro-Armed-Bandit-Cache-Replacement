@@ -1,0 +1,73 @@
+{
+    "executable_name": "champsim",
+    "block_size": 64,
+    "page_size": 4096,
+    "heartbeat_frequency": 10000000,
+    "num_cores": 1,
+
+    "ooo_cpu": [
+        {
+            "frequency": 4000,
+            "ifetch_buffer_size":64,
+            "decode_buffer_size":32,
+            "dispatch_buffer_size":32,
+            "rob_size": 352,
+            "lq_size": 128,
+            "sq_size": 72,
+            "fetch_width": 6,
+            "decode_width": 6,
+            "dispatch_width": 6,
+            "execute_width": 4,
+            "lq_width": 2,
+            "sq_width": 2,
+            "retire_width": 4,
+            "mispredict_penalty": 1,
+            "scheduler_size": 128,
+            "decode_latency": 1,
+            "dispatch_latency": 1,
+            "schedule_latency": 0,
+            "execute_latency": 0,
+            "branch_predictor": "bimodal",
+            "btb": "basic_btb"
+        }
+    ],
+
+    "L1I": {
+        "sets": 64,
+        "ways": 8,
+        "mshr_size": 8,
+        "latency": 4,
+        "prefetcher": "no"
+    },
+
+    "L1D": {
+        "sets": 64,
+        "ways": 8,
+        "mshr_size": 16,
+        "latency": 4,
+        "prefetcher": "no"
+    },
+
+    "L2C": {
+        "sets": 512,
+        "ways": 8,
+        "mshr_size": 32,
+        "latency": 8,
+        "prefetcher": "no"
+    },
+
+    "LLC": {
+        "sets": 2048,
+        "ways": 16,
+        "mshr_size": 64,
+        "latency": 20,
+        "replacement": "lru"
+    },
+
+    "physical_memory": {
+        "frequency": 800,
+        "tRP": 12.5,
+        "tRCD": 12.5,
+        "tCAS": 12.5
+    },
+}
