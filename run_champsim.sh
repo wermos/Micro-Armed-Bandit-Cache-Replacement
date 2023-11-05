@@ -1,5 +1,3 @@
 #!/bin/bash
 
-./ChampSim/config.sh "$@" --bindir ./bin
-
-cd ./ChampSim/ && make -j12
+./bin/champsim --warmup-instructions 25000000 --simulation-instructions 25000000 "$@"
