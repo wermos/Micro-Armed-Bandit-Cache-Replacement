@@ -191,3 +191,12 @@ cython_debug/
 *.exe
 *.out
 *.app
+
+# VS Code Config files
+.vscode/*
+
+# ChampSim Intermediate Files
+.csconfig/*
+
+# Binary files
+bin/*
