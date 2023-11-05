@@ -14,7 +14,7 @@ for file in "$directory_path"/*; do
         ((file_count++))  # Increment the counter
         echo "File $file_count: $file"  # Print the file name with the count
 
-        ./bin/champsim < "$file" > output.txt
+        ./scripts/run_champsim.sh "$file" > output.txt
 
         # Run the Python script to process the output
         python_script="./scripts/analysis.py"
