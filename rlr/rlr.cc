@@ -171,7 +171,7 @@ void CACHE::update_replacement_state(uint32_t triggering_cpu, uint32_t set, uint
         }
     } else {
         // a miss is filled in this way, we reset the status
-        int access = type == PREFETCH? 1 : 0;
+        int access = type == PREFETCH? 0 : 1;
         feature_entries[this][set*NUM_WAY + way].reset(access);
     }
 }
