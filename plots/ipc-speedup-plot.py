@@ -70,7 +70,7 @@ plt.gca().set_yticklabels([str(float(tick) + 1) for tick in plt.gca().get_yticks
 
 
 plt.xlabel('Trace File')
-plt.ylabel('IPC')
+plt.ylabel('Speedup Over LRU')
 plt.xticks(index + bar_width, trace_names, fontsize=15, rotation=90)
 plt.legend()
 
