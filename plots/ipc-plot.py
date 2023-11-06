@@ -66,4 +66,4 @@ plt.xticks(index + bar_width, trace_names, fontsize=15, rotation=90)
 plt.legend()
 
 # plt.show()
-plt.savefig("images/plots/ipc-plots.png")
+plt.savefig("images/ipc-plots.png")
