@@ -30,6 +30,6 @@ def generate_trace_logs(output_dir):
 
     # Use tqdm to display a progress bar
     with Pool(processes=num_processes) as pool:
-        with tqdm(total=len(trace_filenames)) as pbar:
+        with tqdm(total=len(trace_filenames), desc="Time per trace", unit="trace", unit_scale=False) as pbar:
             for _ in pool.imap_unordered(process_trace_private, trace_filenames):
                 pbar.update()
