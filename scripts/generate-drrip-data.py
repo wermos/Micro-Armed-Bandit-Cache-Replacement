@@ -1,8 +1,6 @@
 import re
 import os
 import subprocess
-from multiprocessing import Pool
-# from tqdm import tqdm
 from tqdm.contrib.concurrent import process_map 
 
 def get_trace_names():
@@ -28,12 +26,3 @@ if __name__ == "__main__":
 
     # Use tqdm to display a progress bar
     r = process_map(process_trace, trace_filenames, max_workers=num_processes)
-    # with tqdm(total=len(trace_filenames)) as pbar:
-    #     # Function to update the progress bar
-    #     def update(*a):
-    #         pbar.update()
-
-    #     # Use a multiprocessing Pool to parallelize the execution
-    #     with Pool(processes=num_processes) as pool:
-    #         pool.map(process_trace, trace_filenames)
-    #         pbar.update(len(trace_filenames))  # Manually update progress bar to completion
