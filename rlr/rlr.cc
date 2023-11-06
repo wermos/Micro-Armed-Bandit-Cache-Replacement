@@ -144,7 +144,7 @@ uint32_t CACHE::find_victim(uint32_t triggering_cpu, uint64_t instr_id, uint32_t
 
 void CACHE::update_replacement_state(uint32_t triggering_cpu, uint32_t set, uint32_t way, uint64_t full_addr, uint64_t ip, uint64_t victim_addr, uint32_t type, uint8_t hit) {
     // what is up with all the write back bullshit happening in every other policy inside `update_replacement_state`
-    if (hit && type == WRITEBACK) {
+    if (hit && access_type{type} == access_type::WRITE) {
         return;
     }
     
@@ -164,14 +164,14 @@ void CACHE::update_replacement_state(uint32_t triggering_cpu, uint32_t set, uint
         
 
         feature_entries[this][set*NUM_WAY + way].setTypeHit(1); // I know we need to set this only once per cache line, but what's the harm?
-        if(type == PREFETCH) {
+        if(access_type{type} == access_type::PREFETCH) {
             feature_entries[this][set*NUM_WAY + way].setTypeAccess(0); // check and update access type
         } else {
             feature_entries[this][set*NUM_WAY + way].setTypeAccess(1);
         }
     } else {
         // a miss is filled in this way, we reset the status
-        int access = type == PREFETCH? 0 : 1;
+        int access = access_type{type} == access_type::PREFETCH? 0 : 1;
         feature_entries[this][set*NUM_WAY + way].reset(access);
     }
 }
