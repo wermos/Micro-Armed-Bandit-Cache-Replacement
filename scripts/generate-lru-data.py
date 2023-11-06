@@ -12,7 +12,7 @@ def get_trace_names():
 
 # Function to process each trace file
 def process_trace(trace_filename):
-    command = f"./scripts/run_champsim ./traces/{trace_filename}.trace.xz > ./logs/lru/{trace_filename}.txt"
+    command = f"./scripts/run_champsim.sh ./traces/{trace_filename}.trace.xz > ./logs/lru/{trace_filename}.txt"
     
     # Execute the command using subprocess
     subprocess.run(command, shell=True)
