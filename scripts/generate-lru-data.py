@@ -26,4 +26,4 @@ if __name__ == "__main__":
 
     # Use a multiprocessing Pool to parallelize the execution
     with Pool(processes=num_processes) as pool:
-        pool.map(process_trace, trace_files)
+        pool.map(process_trace, trace_filenames)
