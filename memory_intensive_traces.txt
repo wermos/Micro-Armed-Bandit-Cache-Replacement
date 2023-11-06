@@ -19,7 +19,6 @@ lbm_1004B.trace.xz
 lbm_564B.trace.xz
 lbm_94B.trace.xz
 leslie3d_1116B.trace.xz
-leslie3d_1186B.trace.xz
 leslie3d_94B.trace.xz
 libquantum_1210B.trace.xz
 libquantum_1735B.trace.xz
@@ -35,7 +34,6 @@ omnetpp_340B.trace.xz
 omnetpp_4B.trace.xz
 soplex_205B.trace.xz
 soplex_217B.trace.xz
-soplex_66B.trace.xz
 sphinx3_1339B.trace.xz
 sphinx3_2520B.trace.xz
 sphinx3_883B.trace.xz
