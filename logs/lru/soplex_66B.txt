@@ -7,12 +7,12 @@ Number of CPUs: 1
 Page size: 4096
 
 Off-chip DRAM Size: 4 GiB Channels: 1 Width: 64-bit Data Race: 800 MT/s
-Heartbeat CPU 0 instructions: 10000003 cycles: 2582142 heartbeat IPC: 3.873 cumulative IPC: 3.873 (Simulation time: 00 hr 00 min 44 sec)
-Heartbeat CPU 0 instructions: 20000002 cycles: 5137423 heartbeat IPC: 3.913 cumulative IPC: 3.893 (Simulation time: 00 hr 01 min 31 sec)
-Warmup finished CPU 0 instructions: 25000001 cycles: 6423201 cumulative IPC: 3.892 (Simulation time: 00 hr 01 min 53 sec)
-Warmup complete CPU 0 instructions: 25000001 cycles: 6423201 cumulative IPC: 3.892 (Simulation time: 00 hr 01 min 53 sec)
-Heartbeat CPU 0 instructions: 30000003 cycles: 23594498 heartbeat IPC: 0.5418 cumulative IPC: 0.2912 (Simulation time: 00 hr 04 min 03 sec)
-Heartbeat CPU 0 instructions: 40000000 cycles: 54622799 heartbeat IPC: 0.3223 cumulative IPC: 0.3112 (Simulation time: 00 hr 08 min 09 sec)
+Heartbeat CPU 0 instructions: 10000003 cycles: 2582142 heartbeat IPC: 3.873 cumulative IPC: 3.873 (Simulation time: 00 hr 00 min 13 sec)
+Heartbeat CPU 0 instructions: 20000002 cycles: 5137423 heartbeat IPC: 3.913 cumulative IPC: 3.893 (Simulation time: 00 hr 00 min 28 sec)
+Warmup finished CPU 0 instructions: 25000001 cycles: 6423201 cumulative IPC: 3.892 (Simulation time: 00 hr 00 min 35 sec)
+Warmup complete CPU 0 instructions: 25000001 cycles: 6423201 cumulative IPC: 3.892 (Simulation time: 00 hr 00 min 35 sec)
+Heartbeat CPU 0 instructions: 30000003 cycles: 23594498 heartbeat IPC: 0.5418 cumulative IPC: 0.2912 (Simulation time: 00 hr 01 min 13 sec)
+Heartbeat CPU 0 instructions: 40000000 cycles: 54622799 heartbeat IPC: 0.3223 cumulative IPC: 0.3112 (Simulation time: 00 hr 02 min 31 sec)
 [cpu0_PTW_MSHR] entry:   0 address: 0x1611000 v_addr: 0x454f000 translation_level: 0 event_cycle: 18446744073709551615
 
 DEADLOCK! CPU 0 cycle 83211346
