@@ -27,9 +27,11 @@ def generate_trace_logs(output_dir):
     num_processes = len(os.sched_getaffinity(0))  # Using all available CPU cores
     
     process_trace_private = partial(process_trace, output_dir=output_dir)
+    
+    custom_format = "{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_inv_fmt}{postfix}]"
 
     # Use tqdm to display a progress bar
     with Pool(processes=num_processes) as pool:
-        with tqdm(total=len(trace_filenames), desc="Time per trace", unit="trace") as pbar:
+        with tqdm(total=len(trace_filenames), desc="Generating log files", unit="trace", bar_format=custom_format) as pbar:
             for _ in pool.imap_unordered(process_trace_private, trace_filenames):
                 pbar.update()
