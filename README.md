@@ -70,9 +70,19 @@ scripts/
 
 ---
 
+### Plots
+#### IPC
+![](images/ipc-plots.png)
+![](images/ipc-speedups.png)
+#### MPKI
+![](images/mpki-plot.png)
+![](images/mpki-comparison-plot.png)
+
 ### Conclusion
 
+We observed significant improvement of 8% in IPC of RLR over LRU.
 
+For most traces, RLR has lesser or comparable MPKI.
 
 <br/>
 
