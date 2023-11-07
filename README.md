@@ -64,7 +64,7 @@ scripts/
 
 ### Steps to run the experiments
 
-
+First, configure the ChampSim simulator by updating the config file properly and running `build_champsim.sh`. Then run the script `process.sh` which uses the SPEC 2017 traces to run the ChampSim simulator.
 
 <br/>
 
