@@ -30,7 +30,7 @@ for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr']:
         with open(file_path, 'r') as f:
             if not subdir == 'hawkeye':
                 data = f.read().splitlines()[25]
-                
+
                 ipc = data.split()[4]
 
                 # Storing the number in the respective dictionary based on the subdirectory
@@ -44,9 +44,9 @@ for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr']:
                     rlr_data[file[:-4]] = float(ipc)
             else:
                 data = f.read().splitlines()[26]
-                
+
                 ipc = data.split()[4]
-                
+
                 hawkeye_data[file[:-4]] = float(ipc)
 
 # Extracting data for plotting
