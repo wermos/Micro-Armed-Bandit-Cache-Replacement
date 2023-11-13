@@ -6,7 +6,7 @@ from functools import partial
 from tqdm import tqdm
 
 def get_trace_names():
-    with open("memory_intensive_traces.txt", "r") as f:
+    with open("spec2017_memory_intensive_traces.txt", "r") as f:
         traces = f.read().splitlines()
 
     trace_names = [re.sub(".trace.xz", "", string) for string in traces]
@@ -14,7 +14,7 @@ def get_trace_names():
 
 # Function to process each trace file
 def process_trace(trace_filename, output_dir):
-    command = f"./scripts/run_champsim.sh ./traces/{trace_filename}.trace.xz > ./logs/{output_dir}/{trace_filename}.txt"
+    command = f"./scripts/run_champsim.sh ./traces/{trace_filename}mtrace.xz > ./logs/{output_dir}/{trace_filename}.txt"
 
     # Execute the command using subprocess
     subprocess.run(command, shell=True)
