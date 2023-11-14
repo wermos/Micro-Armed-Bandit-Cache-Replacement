@@ -9,7 +9,7 @@ def get_trace_names():
     with open("spec2017_memory_intensive_traces.txt", "r") as f:
         traces = f.read().splitlines()
 
-    trace_names = [re.sub("champsimtrace.xz", "", string) for string in traces]
+    trace_names = [re.sub(".champsimtrace.xz", "", string) for string in traces]
     return trace_names
 
 # Function to process each trace file
