@@ -61,7 +61,8 @@ for i, (max_val, min_val) in enumerate(zip(max_values, min_values)):
     ax.annotate(f'{max_name}', (index[i], max_val), textcoords="offset points", xytext=(0,15), ha='center', rotation=90)
 
 # Add light gridlines
-ax.grid(color='lightgray', linestyle='--', linewidth=0.5)
+ax.grid(which='both', color='lightgray', linestyle='--', linewidth=0.5)
+ax.yaxis.set_minor_locator(plt.MultipleLocator(0.25))
 
 plt.xlabel('Trace File')
 plt.ylabel('Speedup Over LRU')
@@ -69,7 +70,7 @@ plt.xticks(index, trace_names, fontsize=15, rotation=90)
 
 # Set the lower bound for the y-axis
 ax.set_ylim(bottom=-0.75)
-plt.gca().set_yticklabels([str(float(tick) + 1) for tick in plt.gca().get_yticks()])
+ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: f"{x+1:.2f}"))
 
 # Set x-axis limits to remove empty space on both sides
 ax.set_xlim(left=-0.5, right=len(trace_names)-0.5)
