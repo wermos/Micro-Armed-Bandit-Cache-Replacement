@@ -21,6 +21,15 @@ for i in range(len(lru_values)):
     hawkeye_values[i] = hawkeye_values[i] / lru_values[i] - 1
     rlr_values[i] = rlr_values[i] / lru_values[i] - 1
 
+# Sort data by increasing order of the maximum speedup value
+sorted_indices = np.argsort(np.maximum.reduce([drrip_values, ship_values, hawkeye_values, rlr_values]))
+trace_names = np.array(trace_names)[sorted_indices]
+lru_values = np.array(lru_values)[sorted_indices]
+drrip_values = np.array(drrip_values)[sorted_indices]
+ship_values = np.array(ship_values)[sorted_indices]
+hawkeye_values = np.array(hawkeye_values)[sorted_indices]
+rlr_values = np.array(rlr_values)[sorted_indices]
+
 fig, ax = plt.subplots(layout="constrained", figsize=(16, 9))
 
 index = np.arange(len(trace_names))
@@ -29,8 +38,11 @@ index = np.arange(len(trace_names))
 max_values = np.maximum.reduce([drrip_values, ship_values, hawkeye_values, rlr_values])
 min_values = np.minimum.reduce([drrip_values, ship_values, hawkeye_values, rlr_values])
 
-plt.plot(index, max_values, marker='o', linestyle='--', color='black', label='Max', linewidth=2)
-plt.plot(index, min_values, marker='x', linestyle='--', color='red', label='Min', linewidth=2)
+# Shade the area between the lines
+plt.fill_between(index, max_values, min_values, color='gray', alpha=0.3)
+
+plt.plot(index, max_values, marker='o', linestyle='--', color='black', label='Best-performing policy', linewidth=2)
+plt.plot(index, min_values, marker='x', linestyle='--', color='red', label='Worst-performing policy', linewidth=2)
 
 # Dotted horizontal line at 0
 ax.axhline(0, color='gray', linestyle='dashed', linewidth=1)
@@ -40,37 +52,27 @@ for i, (max_val, min_val) in enumerate(zip(max_values, min_values)):
     if max_val == drrip_values[i]:
         max_name = "DRRIP"
     elif max_val == ship_values[i]:
-        max_name = "SHIP"
+        max_name = "SHiP"
     elif max_val == hawkeye_values[i]:
         max_name = "Hawkeye"
     elif max_val == rlr_values[i]:
         max_name = "RLR"
-    
-    # if min_val == drrip_values[i]:
-    #     min_name = "DRRIP"
-    # elif min_val == ship_values[i]:
-    #     min_name = "SHIP"
-    # elif min_val == hawkeye_values[i]:
-    #     min_name = "Hawkeye"
-    # elif min_val == rlr_values[i]:
-    #     min_name = "RLR"
-    
-    ax.annotate(f'{max_name}', (index[i], max_val), textcoords="offset points", xytext=(0,30), ha='center', rotation=90,
-                arrowprops=dict(arrowstyle='->', linestyle='solid', color='black', mutation_scale=10))
-    
-    # ax.annotate(f'{min_name}', (index[i], min_val), textcoords="offset points", xytext=(0,-55), ha='center', rotation=90,
-    #             arrowprops=dict(arrowstyle='->', linestyle='solid', color='black', mutation_scale=10))
+
+    ax.annotate(f'{max_name}', (index[i], max_val), textcoords="offset points", xytext=(0,15), ha='center', rotation=90)
+
+# Add light gridlines
+ax.grid(color='lightgray', linestyle='--', linewidth=0.5)
 
 plt.xlabel('Trace File')
 plt.ylabel('Speedup Over LRU')
 plt.xticks(index, trace_names, fontsize=15, rotation=90)
 
 # Set the lower bound for the y-axis
-ax.set_ylim(bottom=-1)
+ax.set_ylim(bottom=-0.75)
+plt.gca().set_yticklabels([str(float(tick) + 1) for tick in plt.gca().get_yticks()])
 
 # Set x-axis limits to remove empty space on both sides
 ax.set_xlim(left=-0.5, right=len(trace_names)-0.5)
-
 
 plt.legend(loc="lower left")
 
