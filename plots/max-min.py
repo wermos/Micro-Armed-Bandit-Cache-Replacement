@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -77,4 +78,15 @@ ax.set_xlim(left=-0.5, right=len(trace_names)-0.5)
 
 plt.legend(loc="lower left")
 
-plt.show()
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-s', '--save', action='store_true', default=False)
+
+args = parser.parse_args()
+
+if args.save:
+    plt.savefig("images/max-min.png")
+    plt.savefig("images/max-min.pdf")
+else:
+    plt.show()

@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -37,5 +38,15 @@ plt.ylabel('IPC')
 plt.xticks(index + bar_width, trace_names, fontsize=15, rotation=90)
 plt.legend()
 
-plt.show()
-# plt.savefig("images/ipc-plots.png")
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-s', '--save', action='store_true', default=False)
+
+args = parser.parse_args()
+
+if args.save:
+    plt.savefig("images/ipc-plot.png")
+    plt.savefig("images/ipc-plot.pdf")
+else:
+    plt.show()
