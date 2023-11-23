@@ -2,29 +2,14 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <limits>
-#include <random>
 #include <vector>
 
-inline double randomDouble() {
-    // Returns a random real in [0, 1].
-    static std::uniform_real_distribution<double> distribution(
-        0.0, std::nextafter(1.0, std::numeric_limits<double>::infinity()));
-    static std::mt19937_64 generator;
+#include "util.hpp"
 
-    return distribution(generator);
-}
-
-inline double randomInteger(std::size_t N) {
-    // Returns a random integer in {1, 2, 3, ..., N}.
-    static std::uniform_int_distribution<double> distribution(1, N);
-    static std::mt19937_64 generator;
-
-    return distribution(generator);
-}
-
+// Interface for all policies
 class Policy {
     public:
+        virtual std::size_t selectNextArm() = 0;
         virtual void updateState(std::size_t, double) = 0;
 };
 
@@ -34,7 +19,7 @@ class EGreedy : public Policy {
             rewards.assign(N, 0.);
         }
 
-        inline std::size_t selectNextArm() {
+        virtual std::size_t selectNextArm() override {
             double randomNum = randomDouble();
 
             if (randomNum <= epsilon) {
@@ -59,7 +44,6 @@ class EGreedy : public Policy {
         double epsilon;
         // The total reward obtained by arm `i`
         std::vector<double> rewards;
-
 };
 
 class UCB : public Policy {
@@ -71,4 +55,3 @@ class DUCB : public Policy {
     public:
     private:
 };
-
