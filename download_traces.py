@@ -17,6 +17,6 @@ def download_files(file_list_path, base_url, download_folder):
 
 file_list_path = './trace-names/spec2017_memory_intensive_traces.txt'
 base_url = 'https://dpc3.compas.cs.stonybrook.edu/champsim-traces/speccpu'
-download_folder = 'temp'
+download_folder = 'traces'
 
 download_files(file_list_path, base_url, download_folder)
