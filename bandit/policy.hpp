@@ -17,7 +17,7 @@ class Policy {
 
 class EGreedy : public Policy {
    public:
-    EGreedy(std::size_t N, double eps) : N{N}, epsilon{eps}, roundRobin{true}, totalFrequency{0}, r_avg{1.} {
+    EGreedy(std::size_t N, double eps) : N{N}, epsilon{eps}, r_avg{1.}, roundRobin{true} {
         rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
@@ -62,7 +62,8 @@ class EGreedy : public Policy {
             // check end of round robin phase
             roundRobin = false;  // turn round robin off
 
-            r_avg = std::reduce(rewards.begin(), rewards.end()) / N;  // calculate the avg reward
+            // calculate the avg reward
+            r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
             for (int i = 0; i < rewards.size(); i++) {
                 // normalize reward across different arms
@@ -74,11 +75,14 @@ class EGreedy : public Policy {
    private:
     std::size_t N;
     double epsilon;
+    double r_avg;
+
     bool roundRobin;
+
     // The total reward obtained by arm `i`
     std::vector<double> rewards;
+    // The number of times arm `i` has been pulled
     std::vector<std::size_t> frequency;
-    double r_avg;
 };
 
 class UCB : public Policy {
