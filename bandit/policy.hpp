@@ -21,17 +21,14 @@ class EGreedy : public Policy {
         }
 
         virtual std::size_t selectNextArm() override {
-
             //check if round robin phase is running
-            if(roundRobin)
-            {
-                //find next element which has not been tried out
+            if (roundRobin) {
+                // find next element which has not been tried out
                 std::vector<int>::iterator armIt = std::find(frequency.begin(), frequency.end(), 0);
                 std::size_t arm = std::distance(frequency.begin(), armIt);
-                //return arm
+                // return arm
                 return arm;
             }
-
 
             double randomNum = randomDouble();
 
@@ -51,31 +48,28 @@ class EGreedy : public Policy {
 
         virtual void updateState(std::size_t arm, double reward) override {
             //update the frequency count of this arm and total frequency
-            if(!roundRobin) 
-            {
+            if (!roundRobin)  {
                 reward /= r_avg;   // normalize the incoming reward with r_avg
             }
 
             frequency[arm] += 1;
             totalFrequency += 1;
 
-
             // update the avg reward of this arm
-            rewards[arm] = (rewards[arm]*(frequency[arm] - 1) + reward)/totalFrequency;
+            rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / totalFrequency;
 
-            if(totalFrequency == N) //check end of round robin phase
-            {
+            if (totalFrequency == N) {
+                // check end of round robin phase
                 roundRobin = false; // turn round robin off
-                for(int i = 0; i < rewards.size(); i++)
-                {
+                for (int i = 0; i < rewards.size(); i++) {
                     r_avg += rewards[i];
                 }
 
                 r_avg /= N; // calculate the avg reward
 
-                for(int i = 0; i < rewards.size(); i++)
-                {
-                    rewards[i] /= r_avg;  // normalize reward across different arms
+                for (int i = 0; i < rewards.size(); i++) {
+                    // normalize reward across different arms
+                    rewards[i] /= r_avg;
                 }
                 
             }
@@ -99,7 +93,6 @@ class UCB : public Policy {
     }
 
     virtual std::size_t selectNextArm() override {
-
         //check if round robin phase is running
         if(roundRobin)
         {
@@ -122,7 +115,7 @@ class UCB : public Policy {
         auto result = std::max_element(armPotential.begin(), armPotential.end());
         std::size_t arm = std::distance(armPotential.begin(), result);
 
-        //return optimal arm
+        // return optimal arm
         return arm;           
     }
 
@@ -211,7 +204,7 @@ class DUCB : public Policy {
         //update the frequency count of this arm and total frequency
         if(!roundRobin) // DUCB update
         {
-            frequency[arm] = gamma*frequency[arm];
+            frequency[arm] = gamma * frequency[arm];
             frequency[arm] += 1;
             totalFrequency = gamma*totalFrequency + 1;
             reward /= r_avg;   // normalize the incoming reward with r_avg
