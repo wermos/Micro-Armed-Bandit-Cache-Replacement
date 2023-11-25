@@ -173,7 +173,7 @@ class UCB : public Policy {
 class DUCB : public Policy {
     
     public:
-    DUCB(std::size_t N, double c): N(N), c(c), roundRobin(true), totalFrequency(0), r_avg(1.0) {
+    DUCB(std::size_t N, double c, double gamma): N(N), c(c), gamma(gamma), roundRobin(true), totalFrequency(0), r_avg(1.0) {
         rewards.assign(N, 0.0);
         frequency.assign(N, 0);
     }
