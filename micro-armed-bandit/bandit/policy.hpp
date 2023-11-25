@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <cstddef>
 #include <numeric>
@@ -18,6 +19,8 @@ class Policy {
 class EGreedy : public Policy {
    public:
     EGreedy(std::size_t N, double eps) : N{N}, epsilon{eps}, r_avg{1.}, roundRobin{true} {
+        assert((epsilon >= 0 && epsilon <= 1) && "Invalid value of epsilon.");
+
         rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
@@ -157,7 +160,6 @@ class UCB : public Policy {
 };
 
 class DUCB : public Policy {
-
    public:
     DUCB(std::size_t N, double c, double gamma)
         : N(N), c(c), gamma(gamma), roundRobin(true), totalFrequency(0), r_avg(1.0) {
