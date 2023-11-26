@@ -6,11 +6,9 @@
 #include <vector>
 
 #include "cache.h"
-#include "msl/bits.h"
-
-#include "replacement_policy.hpp"
 #include "constants.hpp"
-
+#include "msl/bits.h"
+#include "replacement_policy.hpp"
 
 // sampler structure
 class SAMPLER_class {
@@ -67,8 +65,10 @@ class SHIP : public ReplacementPolicy {
             auto s_set_end = std::next(s_set_begin, cache_block->NUM_WAY);
 
             // check hit
-            auto match = std::find_if(s_set_begin, s_set_end, addr = full_addr, shamt = 8 + champsim::lg2(cache_block->NUM_WAY)](auto x) {
-                return x.valid && (x.address >> shamt) == (addr >> shamt); });
+            auto match = std::find_if(s_set_begin, s_set_end,
+                                      [addr = full_addr, shamt = 8 + champsim::lg2(cache_block->NUM_WAY)](auto x) {
+                                          return x.valid && (x.address >> shamt) == (addr >> shamt);
+                                      });
 
             if (match != s_set_end) {
                 auto SHCT_idx = match->ip % ::SHCT_PRIME;
