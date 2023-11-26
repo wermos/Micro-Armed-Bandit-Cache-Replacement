@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <cstdint>
 #include <memory>
 #include <vector>
@@ -44,15 +43,6 @@ class Orchestrator {
 
             nextUpdateCycle += MAB_IPC_UPDATE_FREQUENCY;
         }
-
-        if (currentPolicy == 0)
-            std::cout << "Using LRU\n";
-        else if (currentPolicy == 1)
-            std::cout << "Using DRRIP\n";
-        else if (currentPolicy == 2)
-            std::cout << "Using SHIP\n";
-        else if (currentPolicy == 3)
-            std::cout << "Using SRRIP\n";
 
         updatePolicyStates(cache_block, current_cycle, triggering_cpu, set, way, full_addr, ip, victim_addr, type, hit);
     }
