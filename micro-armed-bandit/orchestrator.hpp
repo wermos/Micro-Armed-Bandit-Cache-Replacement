@@ -2,11 +2,11 @@
 
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 #include "bandit/multi_armed_bandit.hpp"
 #include "bandit/policy.hpp"
 
-#include "replacement-policy/replacement_policy.hpp"
 #include "replacement-policy/drrip.hpp"
 #include "replacement-policy/lru.hpp"
 #include "replacement-policy/ship.hpp"

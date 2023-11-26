@@ -8,36 +8,7 @@
 #include "cache.h"
 #include "msl/bits.h"
 
-namespace {
-constexpr int maxRRPV = 3;
-constexpr std::size_t SHCT_SIZE = 16384;
-constexpr unsigned SHCT_PRIME = 16381;
-constexpr std::size_t SAMPLER_SET = (256 * NUM_CPUS);
-constexpr unsigned SHCT_MAX = 7;
-
-// sampler structure
-class SAMPLER_class {
-   public:
-    bool valid = false;
-    uint8_t used = 0;
-    uint64_t address = 0, cl_addr = 0, ip = 0;
-    uint64_t last_used = 0;
-};
-
-// sampler
-std::map<CACHE*, std::vector<std::size_t>> rand_sets;
-std::map<CACHE*, std::vector<SAMPLER_class>> sampler;
-std::map<CACHE*, std::vector<int>> rrpv_values;
-
-#include <algorithm>
-#include <array>
-#include <cassert>
-#include <map>
-#include <utility>
-#include <vector>
-
-#include "cache.h"
-#include "msl/bits.h"
+#include "replacement_policy.hpp"
 
 namespace {
 constexpr int maxRRPV = 3;

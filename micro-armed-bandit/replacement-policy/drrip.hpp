@@ -6,7 +6,7 @@
 #include "cache.h"
 #include "msl/fwcounter.h"
 
-#include "replacement-policy.hpp"
+#include "replacement_policy.hpp"
 
 namespace {
 constexpr unsigned maxRRPV = 3;

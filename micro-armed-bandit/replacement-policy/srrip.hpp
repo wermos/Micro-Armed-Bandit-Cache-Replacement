@@ -3,7 +3,7 @@
 
 #include "cache.h"
 
-#include "replacement-policy.hpp"
+#include "replacement_policy.hpp"
 
 namespace {
 constexpr int maxRRPV = 3;
