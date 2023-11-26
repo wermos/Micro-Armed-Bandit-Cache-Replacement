@@ -5,6 +5,7 @@
 #include "cache.h"
 
 class ReplacementPolicy {
+   public:
     virtual void initialize(CACHE*) = 0;
     virtual void updateState(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
                              std::uint32_t set, std::uint32_t way, std::uint64_t full_addr, std::uint64_t ip,
