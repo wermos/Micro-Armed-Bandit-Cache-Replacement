@@ -178,7 +178,7 @@ class DUCB : public Policy {
         // otherwise find arm potential of each arm
         std::vector<double> armPotential(N);
 
-        for (std::size_t  i = 0; i < armPotential.size(); i++) {
+        for (std::size_t i = 0; i < armPotential.size(); i++) {
             armPotential[i] =
                 rewards[i] + c * std::sqrt(std::log(totalFrequency) / frequency[i]);  // use the UCB formula
         }
