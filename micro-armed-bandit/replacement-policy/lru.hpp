@@ -1,35 +1,43 @@
 #include <algorithm>
 #include <cassert>
+#include <cstdint>
 #include <map>
 #include <vector>
 
 #include "cache.h"
+#include "replacement_policy.hpp"
 
-namespace
-{
-std::map<CACHE*, std::vector<uint64_t>> last_used_cycles;
-}
+class LRU : ReplacementPolicy {
+   public:
+    LRU() = default;
 
-void CACHE::initialize_replacement() { ::last_used_cycles[this] = std::vector<uint64_t>(NUM_SET * NUM_WAY); }
+    virtual void initialize(CACHE* cache_block) override {
+        last_used_cycles[cache_block] = std::vector<uint64_t>(cache_block->NUM_SET * cache_block->NUM_WAY);
+    }
 
-uint32_t CACHE::find_victim(uint32_t triggering_cpu, uint64_t instr_id, uint32_t set, const BLOCK* current_set, uint64_t ip, uint64_t full_addr, uint32_t type)
-{
-  auto begin = std::next(std::begin(::last_used_cycles[this]), set * NUM_WAY);
-  auto end = std::next(begin, NUM_WAY);
+    virtual void updateState(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
+                             std::uint32_t set, std::uint32_t way, std::uint64_t full_addr, std::uint64_t ip,
+                             std::uint64_t victim_addr, std::uint32_t type, std::uint8_t hit) override {
+        // Mark the way as being used on the current cycle
+        if (!hit || access_type{type} != access_type::WRITE) {
+            // Skip this for writeback hits
+            last_used_cycles[cache_block].at(set * cache_block->NUM_WAY + way) = current_cycle;
+        }
+    }
 
-  // Find the way whose last use cycle is most distant
-  auto victim = std::min_element(begin, end);
-  assert(begin <= victim);
-  assert(victim < end);
-  return static_cast<uint32_t>(std::distance(begin, victim)); // cast protected by prior asserts
-}
+    virtual std::uint32_t findVictim(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
+                                     std::uint64_t instr_id, std::uint32_t set, const CACHE::BLOCK* current_set,
+                                     std::uint64_t ip, std::uint64_t full_addr, std::uint32_t type) override {
+        auto begin = std::next(std::begin(last_used_cycles[cache_block]), set * cache_block->NUM_WAY);
+        auto end = std::next(begin, cache_block->NUM_WAY);
 
-void CACHE::update_replacement_state(uint32_t triggering_cpu, uint32_t set, uint32_t way, uint64_t full_addr, uint64_t ip, uint64_t victim_addr, uint32_t type,
-                                     uint8_t hit)
-{
-  // Mark the way as being used on the current cycle
-  if (!hit || access_type{type} != access_type::WRITE) // Skip this for writeback hits
-    ::last_used_cycles[this].at(set * NUM_WAY + way) = current_cycle;
-}
+        // Find the way whose last use cycle is most distant
+        auto victim = std::min_element(begin, end);
+        assert(begin <= victim);
+        assert(victim < end);
+        return static_cast<std::uint32_t>(std::distance(begin, victim));  // cast protected by prior asserts
+    }
 
-void CACHE::replacement_final_stats() {}
+   private:
+    std::map<CACHE*, std::vector<std::uint64_t>> last_used_cycles;
+};
