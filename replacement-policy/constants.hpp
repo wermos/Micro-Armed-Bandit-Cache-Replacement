@@ -1,6 +1,7 @@
 #pragma once
 
 constexpr int maxRRPV = 3;
+
 constexpr std::size_t SHCT_SIZE = 16384;
 constexpr unsigned SHCT_PRIME = 16381;
 constexpr std::size_t SAMPLER_SET = (256 * NUM_CPUS);
