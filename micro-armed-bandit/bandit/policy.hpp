@@ -57,7 +57,7 @@ class EGreedy : public Policy {
             reward /= r_avg;  // normalize the incoming reward with r_avg
         }
 
-        frequency[arm] += 1;
+        frequency[arm]++;
         // update the avg reward of this arm
         rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / frequency[arm];
 
@@ -90,8 +90,8 @@ class EGreedy : public Policy {
 
 class UCB : public Policy {
    public:
-    UCB(std::size_t N, double c) : N(N), c(c), roundRobin(true), totalFrequency(0), r_avg(1.0) {
-        rewards.assign(N, 0.0);
+    UCB(std::size_t N, double c) : N{N}, c{c}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
+        rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
 
@@ -99,9 +99,9 @@ class UCB : public Policy {
         // check if round robin phase is running
         if (roundRobin) {
             // find next element which has not been tried out
-            std::vector<int>::iterator armIt = std::find(frequency.begin(), frequency.end(), 0);
+            auto armIt = std::find(frequency.begin(), frequency.end(), 0);
             std::size_t arm = std::distance(frequency.begin(), armIt);
-            // return arm
+
             return arm;
         }
 
@@ -122,26 +122,22 @@ class UCB : public Policy {
     }
 
     virtual void updateState(std::size_t arm, double reward) override {
-
         // update the frequency count of this arm and total frequency
         if (!roundRobin) {
             reward /= r_avg;  // normalize the incoming reward with r_avg
         }
 
-        frequency[arm] += 1;
-        totalFrequency += 1;
-
+        frequency[arm]++;
+        totalFrequency++;
         // update the avg reward of this arm
-        rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / totalFrequency;
+        rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / frequency[arm];
 
-        if (totalFrequency == N)  // check end of round robin phase
-        {
+        if (totalFrequency == N) {
+            // check end of round robin phase
             roundRobin = false;
-            for (int i = 0; i < rewards.size(); i++) {
-                r_avg += rewards[i];
-            }
 
-            r_avg /= N;  // calculate the avg reward
+            // calculate the avg reward
+            r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
             for (int i = 0; i < rewards.size(); i++) {
                 rewards[i] /= r_avg;  // normalize reward across different arms
@@ -152,29 +148,30 @@ class UCB : public Policy {
    private:
     std::size_t N;
     double c;
-    std::vector<double> rewards;
-    std::vector<int> frequency;
-    std::size_t totalFrequency;
-    bool roundRobin;
     double r_avg;
+    std::size_t totalFrequency;
+
+    bool roundRobin;
+
+    std::vector<double> rewards;
+    std::vector<std::size_t> frequency;
 };
 
 class DUCB : public Policy {
    public:
     DUCB(std::size_t N, double c, double gamma)
-        : N(N), c(c), gamma(gamma), roundRobin(true), totalFrequency(0), r_avg(1.0) {
-        rewards.assign(N, 0.0);
+        : N{N}, c{c}, gamma{gamma}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
+        rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
 
     virtual std::size_t selectNextArm() override {
-
         // check if round robin phase is running
         if (roundRobin) {
             // find next element which has not been tried out
-            std::vector<int>::iterator armIt = std::find(frequency.begin(), frequency.end(), 0);
+            auto armIt = std::find(frequency.begin(), frequency.end(), 0);
             std::size_t arm = std::distance(frequency.begin(), armIt);
-            // return arm
+
             return arm;
         }
 
@@ -195,31 +192,29 @@ class DUCB : public Policy {
     }
 
     virtual void updateState(std::size_t arm, double reward) override {
-
         // update the frequency count of this arm and total frequency
-        if (!roundRobin)  // DUCB update
-        {
-            frequency[arm] = gamma * frequency[arm];
-            frequency[arm] += 1;
+        if (!roundRobin) {
+            // DUCB update
+            frequency[arm] *= gamma;
+            frequency[arm]++;
             totalFrequency = gamma * totalFrequency + 1;
+
             reward /= r_avg;  // normalize the incoming reward with r_avg
-        } else                // normal generic update
-        {
-            frequency[arm] = 1;
-            totalFrequency += 1;
+        } else {
+            // normal generic update
+            frequency[arm]++;
+            totalFrequency++;
         }
 
         // update the avg reward of this arm
-        rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / totalFrequency;
+        rewards[arm] = (rewards[arm] * (frequency[arm] - 1) + reward) / frequency[arm];
 
-        if (totalFrequency == N)  // check end of round robin phase
-        {
+        if (totalFrequency == N) {
+            // check end of round robin phase
             roundRobin = false;
-            for (int i = 0; i < rewards.size(); i++) {
-                r_avg += rewards[i];
-            }
 
-            r_avg /= N;  // calculate the avg reward
+            // calculate the avg reward
+            r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
             for (int i = 0; i < rewards.size(); i++) {
                 rewards[i] /= r_avg;  // normalize reward across different arms
@@ -232,8 +227,10 @@ class DUCB : public Policy {
     double c;
     double gamma;
     double r_avg;
-    std::vector<double> rewards;
-    std::vector<int> frequency;
     std::size_t totalFrequency;
+    
     bool roundRobin;
+
+    std::vector<double> rewards;
+    std::vector<std::size_t> frequency;
 };
