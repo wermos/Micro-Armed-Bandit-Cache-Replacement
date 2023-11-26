@@ -17,7 +17,7 @@
 
 class Orchestrator {
    public:
-    Orchestrator(std::size_t n) : N{n}, c{0.01}, gamma{0.975}, currentPolicy{0}, nextUpdateCycle{0} {
+    Orchestrator(std::size_t n) : N{n}, c{0.04}, gamma{0.975}, currentPolicy{0}, nextUpdateCycle{0} {
         DUCB* policy = new DUCB(N, c, gamma);
         bandit = MultiArmedBandit(N, policy);
 
@@ -41,7 +41,7 @@ class Orchestrator {
             bandit.updateRewards(currentPolicy, ::current_ipc);
             currentPolicy = bandit.nextArm();
 
-            nextUpdateCycle += MAB_IPC_UPDATE_FREQUENCY;
+            nextUpdateCycle += ::MAB_IPC_UPDATE_FREQUENCY;
         }
 
         updatePolicyStates(cache_block, current_cycle, triggering_cpu, set, way, full_addr, ip, victim_addr, type, hit);
@@ -71,6 +71,4 @@ class Orchestrator {
     std::size_t currentPolicy;
     // the next cycle during which the MAB is to be updated
     std::uint64_t nextUpdateCycle;
-
-    static constexpr std::uint64_t MAB_IPC_UPDATE_FREQUENCY = 1000;
 };
