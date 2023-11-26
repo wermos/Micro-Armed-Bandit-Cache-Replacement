@@ -21,9 +21,9 @@ class SRRIP : ReplacementPolicy {
                              std::uint32_t set, std::uint32_t way, std::uint64_t full_addr, std::uint64_t ip,
                              std::uint64_t victim_addr, std::uint32_t type, std::uint8_t hit) override {
         if (hit)
-            rrpv_values[cache_block][set * cache_block->begin_phase + way] = 0;
+            rrpv_values[cache_block][set * cache_block->begin_phase() + way] = 0;
         else
-            rrpv_values[cache_block][set * cache_block->begin_phase + way] = ::maxRRPV - 1;
+            rrpv_values[cache_block][set * cache_block->begin_phase() + way] = ::maxRRPV - 1;
     }
 
     virtual std::uint32_t findVictim(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
