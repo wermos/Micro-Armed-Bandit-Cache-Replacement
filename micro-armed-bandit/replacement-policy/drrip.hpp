@@ -65,7 +65,7 @@ class DRRIP : ReplacementPolicy {
         if (leader == end) {  // follower sets
             auto selector = PSEL[std::make_pair(cache_block, triggering_cpu)];
             if (selector.value() > (selector.maximum / 2)) {  // follow BIP
-                ::rrpv[cache_block][set * cache_block->NUM_WAY + way] = ::maxRRPV;
+                rrpv[cache_block][set * cache_block->NUM_WAY + way] = ::maxRRPV;
 
                 bip_counter[cache_block]++;
                 if (bip_counter[cache_block] == ::BIP_MAX) {
@@ -76,11 +76,11 @@ class DRRIP : ReplacementPolicy {
                 rrpv[cache_block][set * cache_block->NUM_WAY + way] = ::maxRRPV - 1;
             }
         } else if (leader == begin) {  // leader 0: BIP
-            PSEL[std::make_pair(this, triggering_cpu)]--;
+            PSEL[std::make_pair(cache_block, triggering_cpu)]--;
             rrpv[cache_block][set * cache_block->NUM_WAY + way] = ::maxRRPV;
 
             bip_counter[cache_block]++;
-            if (::bip_counter[cache_block] == ::BIP_MAX) {
+            if (bip_counter[cache_block] == ::BIP_MAX) {
                 bip_counter[cache_block] = 0;
                 rrpv[cache_block][set * cache_block->NUM_WAY + way] = ::maxRRPV - 1;
             }
