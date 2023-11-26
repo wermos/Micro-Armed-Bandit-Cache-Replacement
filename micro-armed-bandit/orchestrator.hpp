@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <cstdint>
 #include <memory>
 #include <vector>
@@ -44,7 +45,16 @@ class Orchestrator {
             nextUpdateCycle += MAB_IPC_UPDATE_FREQUENCY;
         }
 
-        updatePolicyState(cache_block, current_cycle, triggering_cpu, set, way, full_addr, ip, victim_addr, type, hit);
+        if (currentPolicy == 0)
+            std::cout << "Using LRU\n";
+        else if (currentPolicy == 1)
+            std::cout << "Using DRRIP\n";
+        else if (currentPolicy == 2)
+            std::cout << "Using SHIP\n";
+        else if (currentPolicy == 3)
+            std::cout << "Using SRRIP\n";
+
+        updatePolicyStates(cache_block, current_cycle, triggering_cpu, set, way, full_addr, ip, victim_addr, type, hit);
     }
 
     std::uint32_t findVictim(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
@@ -55,7 +65,7 @@ class Orchestrator {
 
    private:
     // updates the internal state of all the policies
-    void updatePolicyState(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
+    void updatePolicyStates(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
                      std::uint32_t set, std::uint32_t way, std::uint64_t full_addr, std::uint64_t ip,
                      std::uint64_t victim_addr, std::uint32_t type, std::uint8_t hit) {
         for (const auto& policy : replacementPolicy) {
@@ -72,5 +82,5 @@ class Orchestrator {
     // the next cycle during which the MAB is to be updated
     std::uint64_t nextUpdateCycle;
 
-    static constexpr std::uint64_t MAB_IPC_UPDATE_FREQUENCY = 150;
+    static constexpr std::uint64_t MAB_IPC_UPDATE_FREQUENCY = 1000;
 };
