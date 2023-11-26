@@ -42,7 +42,7 @@ class SHIP : ReplacementPolicy {
 
             while (loc != std::end(rand_sets[cache_block]) && *loc == val) {
                 rand_seed = rand_seed * 1103515245 + 12345;
-                val = (rand_seed / 65536) % NUM_SET;
+                val = (rand_seed / 65536) % cache_block->NUM_SET;
                 loc = std::lower_bound(std::begin(rand_sets[cache_block]), std::end(rand_sets[cache_block]), val);
             }
 
