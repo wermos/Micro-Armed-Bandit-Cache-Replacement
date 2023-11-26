@@ -7,13 +7,13 @@
 #include "cache.h"
 #include "ooo_cpu.h"
 
-#include "bandit/multi_armed_bandit.hpp"
-#include "bandit/policy.hpp"
+#include "../bandit/multi_armed_bandit.hpp"
+#include "../bandit/policy.hpp"
 
-#include "replacement-policy/drrip.hpp"
-#include "replacement-policy/lru.hpp"
-#include "replacement-policy/ship.hpp"
-#include "replacement-policy/srrip.hpp"
+#include "../replacement-policy/drrip.hpp"
+#include "../replacement-policy/lru.hpp"
+#include "../replacement-policy/ship.hpp"
+#include "../replacement-policy/srrip.hpp"
 
 class Orchestrator {
    public:
