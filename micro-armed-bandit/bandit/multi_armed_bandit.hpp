@@ -8,7 +8,7 @@ class MultiArmedBandit {
     public:
         MultiArmedBandit() = default;
         
-        MultiArmedBandit(std::size_t numArms, Policy* policy) : N{numArms}, policy{policy} {}
+        MultiArmedBandit(std::size_t numArms, Policy* pol) : N{numArms}, policy{pol} {}
 
         std::size_t nextArm() {
             return policy->selectNextArm();

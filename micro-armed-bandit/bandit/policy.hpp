@@ -18,7 +18,7 @@ class Policy {
 
 class EGreedy : public Policy {
    public:
-    EGreedy(std::size_t N, double eps) : N{N}, epsilon{eps}, r_avg{1.}, roundRobin{true} {
+    EGreedy(std::size_t n, double eps) : N{n}, epsilon{eps}, r_avg{1.}, roundRobin{true} {
         assert((epsilon >= 0 && epsilon <= 1) && "Invalid value of epsilon.");
 
         rewards.assign(N, 0.);
@@ -68,7 +68,7 @@ class EGreedy : public Policy {
             // calculate the avg reward
             r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
-            for (int i = 0; i < rewards.size(); i++) {
+            for (std::size_t i = 0; i < rewards.size(); i++) {
                 // normalize reward across different arms
                 rewards[i] /= r_avg;
             }
@@ -90,7 +90,7 @@ class EGreedy : public Policy {
 
 class UCB : public Policy {
    public:
-    UCB(std::size_t N, double c) : N{N}, c{c}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
+    UCB(std::size_t n, double C) : N{n}, c{C}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
         rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
@@ -108,7 +108,7 @@ class UCB : public Policy {
         // otherwise find arm potential of each arm
         std::vector<double> armPotential(N);
 
-        for (int i = 0; i < armPotential.size(); i++) {
+        for (std::size_t  i = 0; i < armPotential.size(); i++) {
             armPotential[i] =
                 rewards[i] + c * std::sqrt(std::log(totalFrequency) / frequency[i]);  // use the UCB formula
         }
@@ -139,7 +139,7 @@ class UCB : public Policy {
             // calculate the avg reward
             r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
-            for (int i = 0; i < rewards.size(); i++) {
+            for (std::size_t  i = 0; i < rewards.size(); i++) {
                 rewards[i] /= r_avg;  // normalize reward across different arms
             }
         }
@@ -159,8 +159,8 @@ class UCB : public Policy {
 
 class DUCB : public Policy {
    public:
-    DUCB(std::size_t N, double c, double gamma)
-        : N{N}, c{c}, gamma{gamma}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
+    DUCB(std::size_t n, double C, double g)
+        : N{n}, c{C}, gamma{g}, r_avg{1.}, totalFrequency{0}, roundRobin{true} {
         rewards.assign(N, 0.);
         frequency.assign(N, 0);
     }
@@ -178,7 +178,7 @@ class DUCB : public Policy {
         // otherwise find arm potential of each arm
         std::vector<double> armPotential(N);
 
-        for (int i = 0; i < armPotential.size(); i++) {
+        for (std::size_t  i = 0; i < armPotential.size(); i++) {
             armPotential[i] =
                 rewards[i] + c * std::sqrt(std::log(totalFrequency) / frequency[i]);  // use the UCB formula
         }
@@ -216,7 +216,7 @@ class DUCB : public Policy {
             // calculate the avg reward
             r_avg = std::reduce(rewards.begin(), rewards.end()) / N;
 
-            for (int i = 0; i < rewards.size(); i++) {
+            for (std::size_t i = 0; i < rewards.size(); i++) {
                 rewards[i] /= r_avg;  // normalize reward across different arms
             }
         }
