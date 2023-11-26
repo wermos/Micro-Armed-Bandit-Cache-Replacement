@@ -26,7 +26,7 @@ class DRRIP : ReplacementPolicy {
         std::size_t rand_seed = 1103515245 + 12345;
 
         for (std::size_t i = 0; i < ::TOTAL_SDM_SETS; i++) {
-            std::size_t val = (rand_seed / 65536) % NUM_SET;
+            std::size_t val = (rand_seed / 65536) % cache_block->NUM_SET;
             auto loc = std::lower_bound(std::begin(rand_sets[cache_block]), std::end(rand_sets[cache_block]), val);
 
             while (loc != std::end(rand_sets[cache_block]) && *loc == val) {
@@ -95,7 +95,7 @@ class DRRIP : ReplacementPolicy {
                                      std::uint64_t ip, std::uint64_t full_addr, std::uint32_t type) override {
         // look for the maxRRPV line
         auto begin = std::next(std::begin(rrpv[cache_block]), set * cache_block->NUM_WAY);
-        auto end = std::next(begin, NUM_WAY);
+        auto end = std::next(begin, cache_block->NUM_WAY);
 
         auto victim = std::max_element(begin, end);
         for (auto it = begin; it != end; ++it)
