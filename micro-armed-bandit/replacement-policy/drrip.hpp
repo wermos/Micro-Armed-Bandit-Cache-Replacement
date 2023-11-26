@@ -9,7 +9,7 @@
 #include "replacement_policy.hpp"
 #include "constants.hpp"
 
-class DRRIP : ReplacementPolicy {
+class DRRIP : public ReplacementPolicy {
    public:
     DRRIP() = default;
 

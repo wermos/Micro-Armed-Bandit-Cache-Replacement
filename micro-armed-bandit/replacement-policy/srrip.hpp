@@ -6,7 +6,7 @@
 #include "replacement_policy.hpp"
 #include "constants.hpp"
 
-class SRRIP : ReplacementPolicy {
+class SRRIP : public ReplacementPolicy {
    public:
     SRRIP() = default;
 

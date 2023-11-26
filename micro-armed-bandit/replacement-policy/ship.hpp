@@ -21,7 +21,7 @@ class SAMPLER_class {
     uint64_t last_used = 0;
 };
 
-class SHIP : ReplacementPolicy {
+class SHIP : public ReplacementPolicy {
    public:
     SHIP() = default;
 

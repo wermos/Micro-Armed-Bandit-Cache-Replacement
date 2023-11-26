@@ -7,7 +7,7 @@
 #include "cache.h"
 #include "replacement_policy.hpp"
 
-class LRU : ReplacementPolicy {
+class LRU : public ReplacementPolicy {
    public:
     LRU() = default;
 
