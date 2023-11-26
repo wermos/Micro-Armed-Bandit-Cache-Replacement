@@ -4,10 +4,7 @@
 #include "cache.h"
 
 #include "replacement_policy.hpp"
-
-namespace {
-constexpr int maxRRPV = 3;
-}  // anonymous namespace
+#include "constants.hpp"
 
 class SRRIP : ReplacementPolicy {
    public:

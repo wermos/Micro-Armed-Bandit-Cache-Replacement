@@ -9,14 +9,8 @@
 #include "msl/bits.h"
 
 #include "replacement_policy.hpp"
+#include "constants.hpp"
 
-namespace {
-constexpr int maxRRPV = 3;
-constexpr std::size_t SHCT_SIZE = 16384;
-constexpr unsigned SHCT_PRIME = 16381;
-constexpr std::size_t SAMPLER_SET = (256 * NUM_CPUS);
-constexpr unsigned SHCT_MAX = 7;
-}  // anonymous namespace
 
 // sampler structure
 class SAMPLER_class {

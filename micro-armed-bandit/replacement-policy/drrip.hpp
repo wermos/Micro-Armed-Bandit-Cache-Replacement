@@ -7,15 +7,7 @@
 #include "msl/fwcounter.h"
 
 #include "replacement_policy.hpp"
-
-namespace {
-constexpr unsigned maxRRPV = 3;
-constexpr std::size_t NUM_POLICY = 2;
-constexpr std::size_t SDM_SIZE = 32;
-constexpr std::size_t TOTAL_SDM_SETS = NUM_CPUS * NUM_POLICY * SDM_SIZE;
-constexpr unsigned BIP_MAX = 32;
-constexpr unsigned PSEL_WIDTH = 10;
-}  // anonymous namespace
+#include "constants.hpp"
 
 class DRRIP : ReplacementPolicy {
    public:
