@@ -50,7 +50,7 @@ class Orchestrator {
     std::uint32_t findVictim(CACHE* cache_block, std::uint64_t current_cycle, std::uint32_t triggering_cpu,
                              std::uint64_t instr_id, std::uint32_t set, const CACHE::BLOCK* current_set,
                              std::uint64_t ip, std::uint64_t full_addr, std::uint32_t type) {
-        replacementPolicy[currentPolicy]->findVictim(cache_block, current_cycle, triggering_cpu, instr_id, set, current_set, ip, full_addr, type);
+        return replacementPolicy[currentPolicy]->findVictim(cache_block, current_cycle, triggering_cpu, instr_id, set, current_set, ip, full_addr, type);
     }
 
    private:
