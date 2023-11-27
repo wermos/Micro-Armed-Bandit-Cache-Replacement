@@ -43,7 +43,7 @@ class Orchestrator {
             bandit.updateRewards(currentPolicy, ::current_ipc);
             currentPolicy = bandit.nextArm();
 
-            nextUpdateCycle += ::MAB_IPC_UPDATE_FREQUENCY;
+            nextUpdateCycle += ::MAB_IPC_UPDATE_PERIOD;
         }
 
         updatePolicyStates(cache_block, current_cycle, triggering_cpu, set, way, full_addr, ip, victim_addr, type, hit);
