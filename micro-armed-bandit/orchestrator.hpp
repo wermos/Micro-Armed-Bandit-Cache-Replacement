@@ -14,17 +14,19 @@
 #include "../replacement-policy/lru.hpp"
 #include "../replacement-policy/ship.hpp"
 #include "../replacement-policy/srrip.hpp"
+#include "../replacement-policy/rlr.hpp"
 
 class Orchestrator {
    public:
     Orchestrator(std::size_t n) : N{n}, c{0.04}, gamma{0.975}, currentPolicy{0}, nextUpdateCycle{0} {
-        DUCB* policy = new DUCB(N, c, gamma);
+        UCB* policy = new UCB(N, c);
         bandit = MultiArmedBandit(N, policy);
 
         replacementPolicy.push_back(std::make_shared<LRU>());
         replacementPolicy.push_back(std::make_shared<DRRIP>());
         replacementPolicy.push_back(std::make_shared<SHIP>());
         replacementPolicy.push_back(std::make_shared<SRRIP>());
+        replacementPolicy.push_back(std::make_shared<RLR>());
     }
 
     void initialize(CACHE* cache_block) {
