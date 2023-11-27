@@ -28,8 +28,10 @@ In the top level directory, we have the ChampSim trace-based simulator as a Git 
 
 ```html
 Champsim/
+├─ download_traces.py
 papers/
-├─ reference.pdf
+├─ rlr.pdf
+├─ micro-armed-bandit.pdf
 ├─ methodology-references/
 │  ├─ mockingjay.pdf
 │  ├─ hawkeye.pdf
@@ -43,14 +45,21 @@ logs/
 ├─ generate-rlr-data.py
 ├─ ship/
 ├─ generate-ship-data.py
+├─ srrip/
+├─ generate-srrip-data.py
+├─ ship/
+├─ generate-ship-data.py
+├─ micro-armed-bandit/
+├─ generate-mab-data.py
 images/
 ├─ ipc-plots.png
 ├─ ipc-speedups.png
 ├─ mpki-comparison-plot.png
 ├─ mpki-plot.png
+├─ max-min.png
 plots/
 ├─ ipc-plots.py
-├─ ipc-speedups.py
+├─ ipc-speedups-plot.py
 ├─ mpki-comparison-plot.py
 ├─ mpki-plot.py
 scripts/
@@ -59,6 +68,22 @@ scripts/
 ├─ process.sh
 ├─ overall-ipc-speedup.py
 ├─ analysis.py
+bandit/
+├─ multi_armed_bandit.hpp
+├─ policy.hpp
+├─ util. hpp
+replacement-policy/
+├─ constants.hpp
+├─ replacement_policy.hpp
+├─ drrip.hpp
+├─ lru.hpp
+├─ ship.hpp
+├─ srrip.hpp
+├─ rlr.hpp
+micro-armed-bandit/
+├─ orchestrator.hpp
+├─ orchestrator.cc
+
 ```
 
 
