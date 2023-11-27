@@ -24,7 +24,7 @@ def generate_trace_logs(output_dir):
     trace_filenames = get_trace_names()
 
     # Number of parallel processes to run
-    num_processes = min(10, len(os.sched_getaffinity(0)))  # Using all available CPU cores
+    num_processes = min(9, len(os.sched_getaffinity(0)))  # Using all available CPU cores
     
     process_trace_private = partial(process_trace, output_dir=output_dir)
     

@@ -14,7 +14,7 @@ mab_data = {}
 srrip_data = {}
 tuning_data = {}
 
-subdirs = ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip', 'tuning-period-200']
+subdirs = ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip', 'tuning']
 
 # Iterate over subdirectories
 for subdir in subdirs:
@@ -45,7 +45,7 @@ for subdir in subdirs:
                     mab_data[file[:-4]] = float(ipc)
                 elif subdir == 'srrip':
                     srrip_data[file[:-4]] = float(ipc)
-                elif subdir == 'tuning-period-200':
+                elif subdir == 'tuning':
                     tuning_data[file[:-4]] = float(ipc)
             else:
                 data = f.read().splitlines()[26]
@@ -73,7 +73,6 @@ for i in range(len(lru_values)):
     product[5] *= mab_values[i] / lru_values[i]
 
 for trace in tuning_data.keys():
-    # print(tuning_data[trace])
     product[6] *= tuning_data[trace] / lru_data[trace]
 
 print("Overall IPC Speedup over LRU:\n")
