@@ -32,11 +32,12 @@ def parse_data(function):
     drrip_data = {}
     ship_data = {}
     hawkeye_data = {}
+    srrip_data = {}
     rlr_data = {}
     mab_data = {}
 
     # Iterate over subdirectories
-    for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit']:
+    for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip']:
         subdir_path = os.path.join(main_directory, subdir)
         files = os.listdir(subdir_path)
 
@@ -58,8 +59,10 @@ def parse_data(function):
                     hawkeye_data[file[:-4]] = function(f, subdir)
                 elif subdir == 'micro-armed-bandit':
                     mab_data[file[:-4]] = function(f, subdir)
+                elif subdir == 'srrip':
+                    srrip_data[file[:-4]] = function(f, subdir)
 
-    return lru_data, drrip_data, ship_data, hawkeye_data, rlr_data, mab_data
+    return lru_data, drrip_data, ship_data, hawkeye_data, rlr_data, srrip_data, mab_data
 
 def parse_ipc():
     return parse_data(read_ipc)
