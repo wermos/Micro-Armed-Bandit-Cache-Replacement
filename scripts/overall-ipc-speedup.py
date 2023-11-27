@@ -12,9 +12,12 @@ hawkeye_data = {}
 rlr_data = {}
 mab_data = {}
 srrip_data = {}
+tuning_data = {}
+
+subdirs = ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip', 'tuning']
 
 # Iterate over subdirectories
-for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip']:
+for subdir in subdirs:
     subdir_path = os.path.join(main_directory, subdir)
     files = os.listdir(subdir_path)
 
@@ -42,6 +45,8 @@ for subdir in ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', '
                     mab_data[file[:-4]] = float(ipc)
                 elif subdir == 'srrip':
                     srrip_data[file[:-4]] = float(ipc)
+                elif subdir == 'tuning':
+                    tuning_data[file[:-4]] = float(ipc)
             else:
                 data = f.read().splitlines()[26]
 
@@ -57,12 +62,7 @@ srrip_values = list(srrip_data.values())
 rlr_values = list(rlr_data.values())
 mab_values = list(mab_data.values())
 
-product = [1] * 6 # one for each of the non-LRU policies
-# product = 1
-
-# for j, _ in enumerate(['drrip', 'ship', 'hawkeye', 'rlr']):
-#     for i in range(len(lru_values)):
-#         product[j] *= rlr_values[i] / lru_values[i]
+product = [1] * 7 # one for each of the non-LRU policies
 
 for i in range(len(lru_values)):
     product[0] *= drrip_values[i] / lru_values[i]
@@ -72,10 +72,19 @@ for i in range(len(lru_values)):
     product[4] *= rlr_values[i] / lru_values[i]
     product[5] *= mab_values[i] / lru_values[i]
 
-print(f"Overall IPC Speedup over LRU:")
-print(f"DRRIP: {product[0] ** (1 / len(lru_values))}")
-print(f"SHIP: {product[1] ** (1 / len(lru_values))}")
-print(f"Hawkeye: {product[2] ** (1 / len(lru_values))}")
-print(f"SRRIP: {product[3] ** (1 / len(lru_values))}")
-print(f"RLR : {product[4] ** (1 / len(lru_values))}")
-print(f"Micro-armed bandit: {product[5] ** (1 / len(lru_values))}")
+for trace in tuning_data.keys():
+    # print(tuning_data[trace])
+    product[6] *= tuning_data[trace] / lru_data[trace]
+
+print("Overall IPC Speedup over LRU:\n")
+
+print("Average speedup on the 49 SPEC 2017 traces:")
+print(f"{'DRRIP':<20}: {product[0] ** (1 / len(lru_values))}")
+print(f"{'SHIP':<20}: {product[1] ** (1 / len(lru_values))}")
+print(f"{'Hawkeye':<20}: {product[2] ** (1 / len(lru_values))}")
+print(f"{'SRRIP':<20}: {product[3] ** (1 / len(lru_values))}")
+print(f"{'RLR':<20}: {product[4] ** (1 / len(lru_values))}")
+print(f"{'Micro-armed bandit':<20}: {product[5] ** (1 / len(lru_values))}")
+
+print("\nAverage speedup on the 10 tuning set SPEC 2017 traces:")
+print(f"{'Tuning set':<20}: {product[6] ** (1 / len(tuning_data.keys()))}")
