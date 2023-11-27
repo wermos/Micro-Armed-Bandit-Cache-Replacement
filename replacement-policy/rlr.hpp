@@ -15,21 +15,19 @@ enum Type {
 
 class SetRD {
     private:
-    int entries;
     int accum;
     int rd;
+    int entries;
 
     public:
     SetRD() : accum(0), rd(2), entries(0) {}
 
     void addEntry(int age) {
         accum += age;
-        //std::cout<<"accum:"<<accum<<std::endl;
         entries++;
 
         if (entries == 32) {
             rd = std::max((2 * accum) / entries, 2);
-            //std::cout<<"rd"<<rd<<"accum" <<accum<<std::endl;
             entries = 0;
             accum = 0;
         }
@@ -113,7 +111,7 @@ class Status {
 
 class RLR : public ReplacementPolicy {
    public:
-    SRRIP() = default;
+    RLR() = default;
 
     virtual void initialize(CACHE* cache_block) override {
         feature_entries[cache_block] = std::vector<Status>(cache_block->NUM_SET * cache_block->NUM_WAY);
@@ -127,8 +125,8 @@ class RLR : public ReplacementPolicy {
             return;
         }
         
-        for(int i = 0; i < cache_block->NUM_WAY; i++) {
-            if(i == way) {
+        for(std::uint32_t i = 0; i < cache_block->NUM_WAY; i++) {
+            if (i == way) {
                 continue;
             }
 
