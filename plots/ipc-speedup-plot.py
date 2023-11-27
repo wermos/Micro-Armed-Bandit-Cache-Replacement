@@ -39,10 +39,10 @@ index = np.arange(len(trace_names))
 
 plt.bar(index, drrip_values, bar_width, label='DRRIP')
 plt.bar(index + bar_width, ship_values, bar_width, label='SHiP')
-# plt.bar(index + 2 * bar_width, hawkeye_values, bar_width, label='Hawkeye')
-plt.bar(index + 2 * bar_width, srrip_values, bar_width, label='SRRIP')
-plt.bar(index + 3 * bar_width, rlr_values, bar_width, label='RLR')
-plt.bar(index + 4 * bar_width, mab_values, bar_width, label='Micro-Armed Bandit')
+plt.bar(index + 2 * bar_width, hawkeye_values, bar_width, label='Hawkeye')
+plt.bar(index + 3 * bar_width, srrip_values, bar_width, label='SRRIP')
+plt.bar(index + 4 * bar_width, rlr_values, bar_width, label='RLR')
+# plt.bar(index + 4 * bar_width, mab_values, bar_width, label='Micro-Armed Bandit')
 
 # Set the y-axis to be centered at 1
 ax.set_ylim(-0.6, 1.6)

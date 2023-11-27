@@ -14,7 +14,7 @@ mab_data = {}
 srrip_data = {}
 tuning_data = {}
 
-subdirs = ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip', 'tuning']
+subdirs = ['lru', 'drrip', 'ship', 'hawkeye', 'rlr', 'micro-armed-bandit', 'srrip', 'tuning-period-200']
 
 # Iterate over subdirectories
 for subdir in subdirs:
@@ -45,7 +45,7 @@ for subdir in subdirs:
                     mab_data[file[:-4]] = float(ipc)
                 elif subdir == 'srrip':
                     srrip_data[file[:-4]] = float(ipc)
-                elif subdir == 'tuning':
+                elif subdir == 'tuning-period-200':
                     tuning_data[file[:-4]] = float(ipc)
             else:
                 data = f.read().splitlines()[26]

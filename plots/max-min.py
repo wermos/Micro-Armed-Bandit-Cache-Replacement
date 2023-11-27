@@ -29,7 +29,29 @@ lru_values = np.array(lru_values)[sorted_indices]
 drrip_values = np.array(drrip_values)[sorted_indices]
 ship_values = np.array(ship_values)[sorted_indices]
 hawkeye_values = np.array(hawkeye_values)[sorted_indices]
-rlr_values = np.array(rlr_values)[sorted_indices]
+# rlr_values = np.array(rlr_values)[sorted_indices]
+
+arrays = [drrip_values, ship_values, hawkeye_values, rlr_values]
+
+# Find the minimum value and its index across all arrays
+min_values = np.array([np.min(arr) for arr in arrays])
+overall_min_index = np.argmin(min_values)
+
+# Find the index of the minimum value in the original array
+min_index = np.argmin(arrays[overall_min_index])
+
+if overall_min_index == 0:
+    name = "DRRIP"
+elif overall_min_index == 1:
+    name = "SHiP"
+elif overall_min_index == 2:
+    name = "Hawkeye"
+else:
+    name = "RLR"
+
+print(f"Biggest Slowdown: {min_values[overall_min_index]:.2f}")
+print(f"Policy name: {name}")
+print(f"Trace name: {trace_names[min_index]}")
 
 fig, ax = plt.subplots(layout="constrained", figsize=(16, 9))
 

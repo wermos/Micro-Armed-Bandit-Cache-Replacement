@@ -1,4 +1,3 @@
-619.lbm_s-2677B.champsimtrace.xz
 603.bwaves_s-2609B.champsimtrace.xz
 623.xalancbmk_s-10B.champsimtrace.xz
 605.mcf_s-484B.champsimtrace.xz
