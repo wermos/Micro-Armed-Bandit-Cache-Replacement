@@ -97,7 +97,6 @@ void CACHE::initialize_replacement()
 
 // find replacement victim
 // return value should be 0 ~ 15 or 16 (bypass)
-//uint32_t CACHE::find_victim(uint32_t cpu, uint64_t instr_id, uint32_t set, const BLOCK *current_set, uint64_t PC, uint64_t paddr, uint64_t virtual_address, uint32_t type)
 uint32_t CACHE::find_victim(uint32_t triggering_cpu, uint64_t instr_id, uint32_t set, const BLOCK* current_set, uint64_t ip, uint64_t full_addr, uint32_t type)
 {
     // look for the maxRRPV line
@@ -166,7 +165,6 @@ void update_addr_history_lru(unsigned int sampler_set, unsigned int curr_lru)
 
 
 // called on every cache hit and cache fill
-// void CACHE::update_replacement_state (uint32_t cpu, uint32_t set, uint32_t way, uint64_t paddr, uint64_t virtual_address, uint64_t PC, uint64_t victim_addr, uint32_t type, uint8_t hit, uint8_t asid[])
 void CACHE::update_replacement_state(uint32_t triggering_cpu, uint32_t set, uint32_t way, uint64_t full_addr, uint64_t ip, uint64_t victim_addr, uint32_t type, uint8_t hit)
 {
     // paddr = (paddr >> 6) << 6;
