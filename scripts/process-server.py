@@ -3,7 +3,7 @@ import subprocess
 from multiprocessing import Pool
 from tqdm import tqdm
 
-def process_IPC1_trace(trace_file, dir_name):
+def process_IPC1_trace(trace_file):
     # Run the specific command and capture output in a text file
     output_file = f"{os.path.splitext(trace_file)[0]}.txt"
     
@@ -23,7 +23,7 @@ def process_IPC1_trace(trace_file, dir_name):
     delete_command = f"rm {output_file}"
     subprocess.run(delete_command, shell=True)
 
-def process_CVP1_trace(trace_file, dir_name):
+def process_CVP1_trace(trace_file):
     # Run the specific command and capture output in a text file
     output_file = f"{os.path.splitext(trace_file)[0]}.txt"
     
