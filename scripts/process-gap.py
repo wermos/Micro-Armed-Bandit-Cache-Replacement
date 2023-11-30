@@ -7,7 +7,7 @@ def process_trace(trace_file):
     # Run the specific command and capture output in a text file
     output_file = f"{os.path.splitext(trace_file)[0]}.txt"
     
-    command = f"./scripts/run_champsim.sh ./traces/{trace_file} > {output_file}"
+    command = f"./scripts/run_champsim.sh ./gap/{trace_file} > {output_file}"
     subprocess.run(command, shell=True)
 
     # Run analysis.py on the generated text file
